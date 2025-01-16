@@ -11,7 +11,8 @@ public class Player {
 
     }
     private void setName(){
-        name= inputScanner.nextLine();
+        System.out.println("Enter your name" + getName());
+        name = inputScanner.nextLine();
     }
     public String getName(){
         return name;
@@ -23,7 +24,7 @@ public class Player {
         score+= amount;
     }
     public String getGuess(){
-        
+        System.out.println("guess");
         return inputScanner.nextLine();
     }
  

@@ -1,9 +1,15 @@
+import java.util.Scanner;
+
 public class Game {
+    public static Scanner inputScanner = new Scanner(System.in);
+    
     private Player player1;
     private Player player2;
     private Secret secret;
     private int currentTurn;
     private boolean player1Turn = true;
+    public boolean gameWon = false;
+    public static int winningPlayer;
 
     public Game(){
         secret = new Secret();
@@ -12,9 +18,14 @@ public class Game {
         currentTurn = 1;
 
     }
-    public void play(String guess, int turn, String secret){
+    public void play(){
+        String secret;
+        int turn = 0;
+        String guess = new String("");
         String character = new String();
-        while (!guess.equals(secret)){
+        System.out.println("What is the secret word?");
+        secret = inputScanner.nextLine();
+        while (!(guess.equals(secret))){
         if (player1Turn){
             guess = player1.getGuess();
             if (guess.length() == 1){
@@ -27,8 +38,12 @@ public class Game {
                 }
             }
             else if(guess.equals(secret)){
+                gameWon=true;
+                winningPlayer=1;
                 break;
+                
             }
+            
             player1.addScore(1);
             switchTurn();
             
@@ -47,6 +62,8 @@ public class Game {
                 }
             }
             else if(guess.equals(secret)){
+                gameWon=true;
+                winningPlayer=2;
                 break;
             }
             player2.addScore(1);
