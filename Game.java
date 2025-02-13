@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -10,7 +11,7 @@ public class Game {
     private boolean player1Turn = true;
     public boolean gameWon = false;
     public static int winningPlayer;
-
+    public ArrayList<String> picked = new ArrayList<String>();
     public Game(){
         secret = new Secret();
         player1 = new Player("A");
@@ -28,21 +29,33 @@ public class Game {
         while (!(guess.equals(secret))){
         if (player1Turn){
             guess = player1.getGuess();
+            
             if (guess.length() == 1){
-                for(int i = 0; i<guess.length()-1; i++){
+                for(int i = 0; i<picked.size(); i++){
+                    if (guess.equals(picked.get(i))){
+                        System.out.println("Already Picked!");
+                        guess = player1.getGuess();
+                        break;
+                    }
+                    else{ picked.add(guess);}
+                }
+                for(int i = 0; i<secret.length(); i++){
                     character = secret.substring(i, i+1);
                     if(guess.equals(character)){
-                        System.out.println("The character "+ character +" is in position" + i);
+                        System.out.println("The character "+ character +" is in position " + i);
 
                     }
                 }
             }
+          
             else if(guess.equals(secret)){
                 gameWon=true;
                 winningPlayer=1;
+                System.out.println("Player "+ player1.getName() +" Wins!");
                 break;
                 
             }
+            
             
             player1.addScore(1);
             switchTurn();
@@ -53,10 +66,10 @@ public class Game {
         if (!player1Turn){
             guess = player2.getGuess();
             if (guess.length() == 1){
-                for(int i = 0; i<guess.length()-1; i++){
+                for(int i = 0; i<secret.length(); i++){
                     character = secret.substring(i, i+1);
                     if(guess.equals(character)){
-                        System.out.println("The character "+ character +" is in position" + i);
+                        System.out.println("The character "+ character +" is in position " + i);
 
                     }
                 }
@@ -64,7 +77,11 @@ public class Game {
             else if(guess.equals(secret)){
                 gameWon=true;
                 winningPlayer=2;
+                System.out.println("Player "+ player1.getName() +" Wins!");
                 break;
+            }
+            else{
+                System.out.println("Invalid guess!");
             }
             player2.addScore(1);
             switchTurn();
