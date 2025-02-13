@@ -20,6 +20,7 @@ public class Game {
 
     }
     public void play(){
+        
         String secret;
         int turn = 0;
         String guess = new String("");
@@ -54,6 +55,9 @@ public class Game {
                 System.out.println("Player "+ player1.getName() +" Wins!");
                 break;
                 
+            }
+            else{
+                System.out.println("Invalid guess!");
             }
             
             
